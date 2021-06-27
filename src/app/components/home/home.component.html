@@ -1,0 +1,109 @@
+<br>
+<h4 class="text-center">Check your nearest vaccination center and slots availability</h4><br>
+<div class="container-fluid">
+    <form class="container-fluid" [formGroup]="form" (ngSubmit)="onsubmit()">
+         <div class="form-row">
+            <div class="form-group col-md-6 col-sm-12" >
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                    </div>
+                    <div class="form-group col-md-6" >
+                        <label style="width:100%;">Select State:</label><br>
+                        <select (click)="onClickState()"  class="form-control" formControlName="state" required>
+                            <option *ngFor="let state of State_Data" value="{{state.state_id}}">{{state.state_name}}</option>
+                        </select>
+                        <small *ngIf="f.state.touched && f.state.invalid" class="text-danger">
+                            <div *ngIf="f.state.errors.required">State is required</div>
+                        </small>
+                    </div>
+                   
+                </div>
+            </div>
+            <div class="form-group col-md-6 col-sm-12">
+                <label style="width:100%;">Select District :</label><br>
+                <select  formControlName="district" class="form-control col-md-6" style="width:100%;" aria-label="Default select example">
+                    <option *ngFor="let district of District_Data" value="{{district.district_id}}">{{district.district_name}}</option>
+                </select>
+                <small *ngIf="f.district.touched && f.district.invalid" class="text-danger">
+                    <div *ngIf="f.district.errors.required">District is required</div>
+                </small>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <label  class="inline" >Select Date:</label>&nbsp;&nbsp;&nbsp;
+                <input  class="inline" type="date" placeholder="dd-mm-yyyy" value="" class="form-control" formControlName="date" style="width:100%;"/>
+                <small *ngIf="f.date.touched && f.date.invalid" class="text-danger">
+                    <div *ngIf="f.date.errors.required">Date is required</div>
+                </small>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-md-5"></div>
+            <div class="col-md-2"> <button class="btn  btn-primary" [disabled]="form.invalid" style="margin-left:0%;width:100%;font-weight: bolder;">Search</button></div>
+            <div class="col-md-5"></div>
+        </div>
+       
+    </form><br>
+    <div class="form-group" style="width: 100%; height: 500px; overflow-y: scroll;">
+        <table class="table text-center">
+            <thead style="background-color: rgb(29, 156, 230);color: blanchedalmond;font-weight: bold;"> 
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Fee_Type</th>
+                <th scope="col">Date</th>
+                <th scope="col">Timing</th>
+                <th scope="col">Vaccine</th>
+                <th scope="col">Available_Dose</th>
+                <th scope="col">Min_Age_Limit</th>
+                <th scope="col">Slots</th>
+              </tr>
+            </thead>
+            <tbody> 
+              <tr style="font-weight: bold;" *ngFor="let center of Center_Data">
+                <td style="max-width:250px;">{{center.name}}<p class="text-left" style="color: rgb(158, 158, 158);">{{center.address}}</p></td>
+                <td>
+                    <div *ngIf="center.fee_type==='Paid';else freebt">
+                        <button class="btn" style="color:white;background-color: rgb(238, 225, 43);font-weight: bold;">Paid</button>
+                    </div>
+                    <ng-template #freebt><button class="btn" style="color:white ;;background-color: rgb(40, 221, 34);font-weight: bold;">Free</button></ng-template>    
+                </td>
+                <td>{{center.date}}</td>
+                <td>
+                    <p>{{center.from}}</p>
+                    <p>{{center.to}}</p>
+                </td>
+                <td>{{center.vaccine}}</td>
+                <td>
+                    <div class="row" >
+                        <div class="text-center col-md-3" ></div>
+                        <div class="text-center col-md-3" >
+                            <div *ngIf="center.available_capacity_dose1==0;else elseD1">
+                                <button type="button" style="font-weight: bold; background-color: red;" class="btn btn-primary btn-sm">D1({{center.available_capacity_dose1}})</button>
+                            </div>
+                            <ng-template #elseD1><button type="button" style="font-weight: bold;background-color: rgb(44, 180, 62);" class="btn btn-secondary btn-sm">D1({{center.available_capacity_dose1}})</button></ng-template>    
+                        </div>
+                        <div class="text-center col-md-3">
+                            <div *ngIf="center.available_capacity_dose2==0;else elseD2">
+                                <button type="button" style="font-weight: bold; background-color: red;" class="btn btn-primary btn-sm">D2({{center.available_capacity_dose2}})</button>
+                            </div>
+                            <ng-template #elseD2><button type="button" style="font-weight: bold; background-color: rgb(44, 180, 62);" class="btn btn-secondary btn-sm">D2({{center.available_capacity_dose2}})</button></ng-template>
+                       </div>
+                       <div class="text-center col-md-3" ></div>
+                    </div>
+               </td>
+                <td style="color: rgb(231, 0, 0);">{{center.min_age_limit}}+</td>
+                <td>
+                    <div *ngFor="let slot of center.slots">
+                        <h6>{{slot}}</h6>
+                    </div> 
+                </td>
+              </tr>
+              
+              
+            </tbody>
+          </table>
+    </div>
+</div>
+
