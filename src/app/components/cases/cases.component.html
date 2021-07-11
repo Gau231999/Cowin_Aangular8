@@ -1,0 +1,51 @@
+    <h3 style="text-align: center;">India Covid Cases</h3>
+    <div class="row container-fluid " style="margin-left: 0.05%;">
+        <div class="col col-4 border border-warning "  style="text-align: center;border-radius: 2%;border-color: black;">
+            <p style="font-size:150%;margin-top:5%" >Total Confirmed</p>
+            <p style="font-weight: bolder;font-size:150%;">{{Daily_case[0]['totalconfirmed']}}</p>
+            
+        </div>
+        <div class="col col-4 border border-success"  style="text-align: center;">
+            <p style="font-size:150%;margin-top:5%">Total Recovered</p>
+            <p style="font-weight: bolder;font-size:150%;">{{Daily_case[0]['totalrecovered']}}</p>
+           
+        </div>
+        <div class="col col-4 border border-danger"  style="text-align: center;">
+            <p style="font-size:150%;margin-top:5%">Total Death</p>
+            <p style="font-weight: bolder;font-size:150%;">{{Daily_case[0]['totaldeceased']}}</p>
+            
+        </div>
+    </div>
+    <br>
+    <div class="form-group" style="width: 100%; height: 300px; overflow-y: scroll;">
+        <table class="table text-center">
+            <thead style="background-color: rgb(29, 156, 230);color: blanchedalmond;font-weight: bold;">
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Dailyconfirmed</th>
+                    <th scope="col">Dailyrecovered</th>
+                    <th scope="col">Dailydeceased</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="font-weight: bold;" *ngFor="let case of Daily_case">
+                    <td>{{case.date}}</td>
+                    <td style="color: rgb(236, 201, 0);">{{case.dailyconfirmed}}</td>
+                    <td style="color: rgb(5, 201, 47);">{{case.dailyrecovered}}</td>
+                    <td style="color: rgb(252, 39, 39);">{{case.dailydeceased}}</td>
+                   
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="form-group" style="width: 100%; height: 500px; overflow-y: scroll;">
+        <google-chart #chart 
+                [type]="type" 
+                [data]="data" 
+                [columnNames]="columnNames"
+                [options]="options" 
+                [width]="width" 
+                [height]="height">
+        </google-chart>
+    </div>

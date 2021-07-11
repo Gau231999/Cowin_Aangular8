@@ -5,12 +5,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CasesComponent } from './components/cases/cases.component';
+import { FooterComponent } from './components/footer/footer.component'
+import { GoogleChartsModule } from 'angular-google-charts';
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    HomeComponent
+    HomeComponent,
+    CasesComponent,
+    FooterComponent
   ],
   imports: [
     ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
@@ -18,7 +23,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
     AppRoutingModule,
     HttpClientModule,
     FormsModule ,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    GoogleChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
